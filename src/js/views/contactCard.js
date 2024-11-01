@@ -1,8 +1,7 @@
 import React, { useEffect, useContext } from 'react' // PASO 1 
 import { Link } from 'react-router-dom';
 import { Context } from '../store/appContext'    // PASO 2 IMPORTO CONTEXTO 
-import perfil from "/workspaces/ListaContactosReactContext-MartinCedres/src/img/perfil.jpg"
-
+import perfil from '../../img/perfil.jpg';
 
 
 const ContactCard = ({ contacto }) => {
@@ -19,7 +18,7 @@ const ContactCard = ({ contacto }) => {
                     <div className="card-body">
                         <h5 className="card-title">{contacto.name}</h5>
                         <p className="card-text">
-                            <i className="fa fa-map-marker" aria-hidden="true"></i> {contacto.addres} <br />
+                            <i className="fa fa-map-marker" aria-hidden="true"></i> {contacto.address} <br />
                             <i className="fa fa-phone" aria-hidden="true"></i> {contacto.phone}<br />
                             <i className="fa fa-envelope" aria-hidden="true"></i> {contacto.email}
                         </p>
