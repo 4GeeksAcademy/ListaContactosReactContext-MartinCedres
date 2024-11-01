@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from "react";
 import getState from "./flux.js";
 
-// Don't change, here is where we initialize our context, by default it's just going to be null.
+// No cambies, aquí es donde inicializamos nuestro contexto, de forma predeterminada será nulo.
+
+//CREA EL CONTEXTO
 export const Context = React.createContext(null);
 
-// This function injects the global store to any view/component where you want to use it, we will inject the context to layout.js, you can see it here:
+// Esta función inyecta la tienda global en cualquier vista/componente donde quieras usarla, inyectaremos el contexto en layout.js, puedes verlo aquí:
 // https://github.com/4GeeksAcademy/react-hello-webapp/blob/master/src/js/layout.js#L35
 const injectContext = PassedComponent => {
+	//CREA EL PROVIDER QUE COMPARTIRA LOS DATOS 
 	const StoreWrapper = props => {
-		//this will be passed as the contenxt value
+		//esto se pasará como valor de contexto CREA EL ESTADO GLOBAL Y LA FUNCION PARA ACTUALIZARLO
 		const [state, setState] = useState(
 			getState({
 				getStore: () => state.store,
@@ -23,19 +26,25 @@ const injectContext = PassedComponent => {
 
 		useEffect(() => {
 			/**
-			 * EDIT THIS!
-			 * This function is the equivalent to "window.onLoad", it only runs once on the entire application lifetime
-			 * you should do your ajax requests or fetch api requests here. Do not use setState() to save data in the
-			 * store, instead use actions, like this:
+			 * EDITAR ESTO!
+			 * Esta función es equivalente a "window.onLoad", solo se ejecuta una vez durante toda la vida útil de la aplicación.
+			 * debe realizar sus solicitudes de ajax o buscar solicitudes de api aquí. No utilice setState() para guardar datos en el
+			 * almacenar, en su lugar utilice acciones, como esta:
 			 *
-			 * state.actions.loadSomeData(); <---- calling this function from the flux.js actions
+			 * state.actions.loadSomeData(); <---- llamar a esta función desde las acciones de flux.js
+			 * 
 			 *
 			 **/
+			//TRAIGO DATOS DEL SERVIDOR
+			state.actions.traerDatosServidor()
+
 		}, []);
 
-		// The initial value for the context is not null anymore, but the current state of this component,
-		// the context will now have a getStore, getActions and setStore functions available, because they were declared
-		// on the state of this component
+		// El valor inicial del contexto ya no es nulo, sino el estado actual de este componente,
+		// el contexto ahora tendrá disponibles las funciones getStore, getActions y setStore, porque fueron declaradas
+		// sobre el estado de este componente
+
+		//CREA EL CODIGO DEL ESTADO 
 		return (
 			<Context.Provider value={state}>
 				<PassedComponent {...props} />
